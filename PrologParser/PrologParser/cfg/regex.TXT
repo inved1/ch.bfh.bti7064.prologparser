@@ -1,0 +1,2 @@
+[_a-z][_a-zA-Z0-9]* ; Konstante
+[_A-Z][_a-zA-Z0-9]* ; Variable
