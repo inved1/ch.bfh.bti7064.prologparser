@@ -30,6 +30,8 @@ Partial Class frmOptions
         Me.Button2 = New System.Windows.Forms.Button()
         Me.dgv_regex = New System.Windows.Forms.DataGridView()
         Me.dgv_keywords = New System.Windows.Forms.DataGridView()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.dgv_various = New System.Windows.Forms.DataGridView()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -39,12 +41,15 @@ Partial Class frmOptions
         Me.SplitContainer1.SuspendLayout()
         CType(Me.dgv_regex, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgv_keywords, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage3.SuspendLayout()
+        CType(Me.dgv_various, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
@@ -133,6 +138,26 @@ Partial Class frmOptions
         Me.dgv_keywords.Size = New System.Drawing.Size(585, 290)
         Me.dgv_keywords.TabIndex = 0
         '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.dgv_various)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(591, 296)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Various"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'dgv_various
+        '
+        Me.dgv_various.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_various.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgv_various.Location = New System.Drawing.Point(3, 3)
+        Me.dgv_various.Name = "dgv_various"
+        Me.dgv_various.Size = New System.Drawing.Size(585, 290)
+        Me.dgv_various.TabIndex = 0
+        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -150,6 +175,8 @@ Partial Class frmOptions
         Me.SplitContainer1.ResumeLayout(False)
         CType(Me.dgv_regex, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgv_keywords, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage3.ResumeLayout(False)
+        CType(Me.dgv_various, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -161,4 +188,6 @@ Partial Class frmOptions
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents dgv_regex As System.Windows.Forms.DataGridView
     Friend WithEvents dgv_keywords As System.Windows.Forms.DataGridView
+    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
+    Friend WithEvents dgv_various As System.Windows.Forms.DataGridView
 End Class

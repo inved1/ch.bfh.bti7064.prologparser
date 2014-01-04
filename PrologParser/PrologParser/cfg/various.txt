@@ -1,0 +1,9 @@
+﻿@<;compare
+@=<;compare
+@>;compare
+@>=;compare
+==;equality 
+\==;inequality 
+=;assignment
+:-;assignment
+';string

@@ -20,6 +20,9 @@
     End Sub
 
     Private Sub PrologParserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrologParserToolStripMenuItem.Click
+        Dim f As New Scanner
+        f.MdiParent = Me
+        f.Show()
 
     End Sub
 End Class

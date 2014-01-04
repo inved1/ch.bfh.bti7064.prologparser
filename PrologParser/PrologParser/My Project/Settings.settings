@@ -8,5 +8,8 @@
     <Setting Name="keywordsFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">cfg/keywords.txt</Value>
     </Setting>
+    <Setting Name="variousFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cfg/various.txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

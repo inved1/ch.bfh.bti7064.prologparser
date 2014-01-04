@@ -2,6 +2,7 @@ min
 max
 compare
 garbage_collect
+is
 the predicate fail
 current_predicate
 catch

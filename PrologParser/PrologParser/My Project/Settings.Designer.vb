@@ -77,6 +77,18 @@ Namespace My
                 Me("keywordsFile") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("cfg/various.txt")>  _
+        Public Property variousFile() As String
+            Get
+                Return CType(Me("variousFile"),String)
+            End Get
+            Set
+                Me("variousFile") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
