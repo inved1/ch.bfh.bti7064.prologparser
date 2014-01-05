@@ -1,2 +1,16 @@
-[_a-z][_a-zA-Z0-9]* ; Konstante
-[_A-Z][_a-zA-Z0-9]* ; Variable
+[_a-z][_a-zA-Z0-9]*;Konstante
+[_a-zA-Z0-9]*[_a-z][_a-zA-Z0-9]*[\(][_a-zA-Z0-9]*[\)];Konstante mit funktion
+[_A-Z][_a-zA-Z0-9]*;Variable
+[_a-zA-Z0-9]*[_A-Z][_a-zA-Z0-9]*[\(][_a-zA-Z0-9]*[\)];Variable mit funktion
+[/*][.*]*[*/];comments c-style
+\(;klammerauf
+\);klammerzu
+\[;listauf
+\];listzu
+\|;listcut
+[<|>|<>|<=|>=|=];vergleichsoperatoren
+\'.*[.*]+\';string
+[\+|-|\*|\/];mathoperator
+\.;endzeichen
+\[(.*?)\];listeninhalt
+\:\-;zuweisung

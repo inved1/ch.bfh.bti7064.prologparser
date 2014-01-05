@@ -83,7 +83,7 @@ Partial Class Scanner
         Me.rtf_source.Name = "rtf_source"
         Me.rtf_source.Size = New System.Drawing.Size(734, 329)
         Me.rtf_source.TabIndex = 0
-        Me.rtf_source.Text = ""
+        Me.rtf_source.Text = "hello_world :- write('Hello World!')."
         '
         'rtf_result
         '

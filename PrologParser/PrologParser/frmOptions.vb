@@ -25,7 +25,7 @@
         Me.dgv_regex.Columns.Add("description", "description")
         Me.dgv_keywords.Columns.Add("keyword", "keyword")
         Me.dgv_keywords.Columns.Add("description", "description")
-        Me.dgv_various.Columns.Add("keyword", "keyword")
+        Me.dgv_various.Columns.Add("various", "various")
         Me.dgv_various.Columns.Add("description", "description")
 
     End Sub
