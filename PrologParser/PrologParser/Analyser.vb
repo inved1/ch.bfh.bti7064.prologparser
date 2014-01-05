@@ -24,6 +24,7 @@ Public Class Analyser
 
         'rules here - I dont know what to identify first, what last. so I'll start with this rules:
         ' 1. identify assignemts (and variables therefore)
+        ' identify also brackets and therefore functions
         ' 2. identify . and therefore end-of-statements
         ' 3. identify structs and lists - therefore functions (structs)
         ' 4. identify keywords 
@@ -31,11 +32,30 @@ Public Class Analyser
         ' 6. identify strings   
 
         identifyAssignments()
+        identifyBrackets()
 
 
         Me.myTXTBOXout.Text = myTXTout
 
         analyseText = True
+    End Function
+
+    Private Function identifyBrackets()
+        'find first bracket, everything before is a function
+        Dim pattern As String = Me.mySettings.regex.Select("description =  'beginnfunction'")(0).Item(0).ToString.Trim
+
+        Dim regex As New Regex(pattern)
+        Dim pos As New SortedDictionary(Of Integer, String)
+
+        For Each m As Match In regex.Matches(myTXTout)
+            pos.Add(m.Index, m.Value)
+        Next
+
+        For Each entry As KeyValuePair(Of Integer, String) In pos.Reverse
+            myTXTout = myTXTout.Insert(entry.Key, "##FUN_START##")
+            myTXTout = myTXTout.Insert(entry.Key + "##FUN_START##".Length + entry.Value.Length - 1, "##FUN_END##")
+        Next
+
     End Function
 
     Private Function identifyAssignments()
