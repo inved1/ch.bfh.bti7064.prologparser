@@ -1,4 +1,6 @@
-﻿Public Class Scanner
+﻿Imports System.Text.RegularExpressions
+
+Public Class Scanner
 
     Dim mySettings As Settings
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -24,9 +26,83 @@
         Me.rtf_result.Text = ""
         oAn.analyseText(Me.rtf_source.Text, Me.rtf_source, Me.rtf_result.Text, Me.rtf_result)
 
+        'cghange color
+        colorMe(New System.Text.RegularExpressions.Regex("[#][#][F][U][N][_][S][T][A][R][T][#][#]"),
+                New System.Text.RegularExpressions.Regex("[#][#][F][U][N][_][E][N][D][#][#]"),
+                Color.Blue, New List(Of String)(New String() {"##FUN_START##", "##FUN_END##"}))
+        colorMe(New System.Text.RegularExpressions.Regex("[#][#][K][O][N][S][T][_][S][T][A][R][T][#][#]"),
+                New System.Text.RegularExpressions.Regex("[#][#][K][O][N][S][T][_][E][N][D][#][#]"),
+                Color.Red, New List(Of String)(New String() {"##KONST_START##", "##KONST_END##"}))
+        colorMe(New System.Text.RegularExpressions.Regex("[#][#][L][I][S][T][_][S][T][A][R][T][#][#]"),
+             New System.Text.RegularExpressions.Regex("[#][#][L][I][S][T][_][E][N][D][#][#]"),
+             Color.Violet, New List(Of String)(New String() {"##LIST_START##", "##LIST_END##"}))
+
+        colorMe(New System.Text.RegularExpressions.Regex("[#][#][K][E][Y][W][O][R][D][_][S][T][A][R][T][#][#]"),
+             New System.Text.RegularExpressions.Regex("[#][#][K][E][Y][W][O][R][D][_][E][N][D][#][#]"),
+            Color.Gold, New List(Of String)(New String() {"##KEYWORD_START##", "##KEYWORD_END##"}))
+        colorMe(New System.Text.RegularExpressions.Regex("[#][#][C][O][M][P][A][R][E][R][_][S][T][A][R][T][#][#]"),
+       New System.Text.RegularExpressions.Regex("[#][#][C][O][M][P][A][R][E][R][_][E][N][D][#][#]"),
+      Color.Gold, New List(Of String)(New String() {"##COMPARER_START##", "##COMPARER_END##"}))
+
+        colorMe(New System.Text.RegularExpressions.Regex("[#][#][K][O][N][S][T][_][S][T][A][R][T][#][#]"),
+              ":-", "##ASSIGNMENT##".Length,
+              Color.Green, New List(Of String)(New String() {"##ASSIGNMENT##"}))
+
+
+
 
     End Sub
 
+    Private Sub colorMe(regexstart As Regex, replaceString As String, len As Integer, color As Color, patternsToRemove As List(Of String))
+        Dim lpoints As New List(Of Integer)
+
+
+        For Each m As Match In regexstart.Matches(Me.rtf_result.Text)
+            lpoints.Add(m.Index)
+        Next
+
+
+        For Each i As Integer In lpoints
+
+            Me.rtf_result.SelectionStart = i
+            Me.rtf_result.SelectionLength = len
+            If Me.rtf_result.SelectionColor.Name = "Black" Then
+                Me.rtf_result.SelectionColor = color
+            End If
+        Next
+
+
+        For Each s As String In patternsToRemove
+            Me.rtf_result.Rtf = Me.rtf_result.Rtf.Replace(s, "")
+        Next
+    End Sub
+    Private Sub colorMe(regexstart As Regex, regexend As Regex, color As Color, keywordsToRemove As List(Of String))
+        Dim lpoints As New List(Of Integer)
+
+
+        For Each m As Match In regexstart.Matches(Me.rtf_result.Text)
+            lpoints.Add(m.Index)
+        Next
+        Dim lpoints2 As New List(Of Integer)
+
+        For Each m As Match In regexend.Matches(Me.rtf_result.Text)
+            lpoints2.Add(m.Index)
+        Next
+
+        For Each i As Integer In lpoints
+            Dim j As Integer = lpoints2.Item(lpoints.IndexOf(i))
+            Me.rtf_result.SelectionStart = i
+            Me.rtf_result.SelectionLength = j - i
+            If Me.rtf_result.SelectionColor.Name = "Black" Then
+                Me.rtf_result.SelectionColor = color
+            End If
+        Next
+
+
+        For Each s As String In keywordsToRemove
+            Me.rtf_result.Rtf = Me.rtf_result.Rtf.Replace(s, "")
+        Next
+    End Sub
     Private Sub Scanner_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim tbregex As New DataTable

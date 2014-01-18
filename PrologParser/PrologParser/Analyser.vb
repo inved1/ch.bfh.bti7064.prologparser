@@ -33,11 +33,77 @@ Public Class Analyser
 
         identifyAssignments()
         identifyBrackets()
+        identifyLists()
+        identifyKeywords()
+        identifyComparers()
 
 
         Me.myTXTBOXout.Text = myTXTout
 
         analyseText = True
+    End Function
+
+
+    Private Function identifyComparers()
+        For Each r As DataRow In Me.mySettings.various.Rows
+            Dim s As String = r(0).ToString.Trim
+            Dim pat As String = ""
+            For Each c As Char In s
+                pat += "[" + c + "]"
+            Next
+
+            Dim regex As New Regex(pat)
+            Dim pos As New SortedDictionary(Of Integer, String)
+
+            For Each m As Match In regex.Matches(myTXTout)
+                pos.Add(m.Index, m.Value)
+            Next
+
+            For Each entry As KeyValuePair(Of Integer, String) In pos.Reverse
+                myTXTout = myTXTout.Insert(entry.Key, "##COMPARER_START##")
+                myTXTout = myTXTout.Insert(entry.Key + "##COMPARER_START##".Length + entry.Value.Length, "##COMPARER_END##")
+            Next
+
+        Next
+    End Function
+    Private Function identifyKeywords()
+        For Each r As DataRow In Me.mySettings.keywords.Rows
+            Dim s As String = r(0).ToString.Trim
+            Dim pat As String = ""
+            For Each c As Char In s
+                pat += "[" + c + "]"
+            Next
+
+            Dim regex As New Regex("[" + pat + "]")
+            Dim pos As New SortedDictionary(Of Integer, String)
+
+            For Each m As Match In regex.Matches(myTXTout)
+                pos.Add(m.Index, m.Value)
+            Next
+
+            For Each entry As KeyValuePair(Of Integer, String) In pos.Reverse
+                myTXTout = myTXTout.Insert(entry.Key, "##KEYWORD_START##")
+                myTXTout = myTXTout.Insert(entry.Key + "##KEYWORD_START##".Length + entry.Value.Length, "##KEYWORD_END##")
+            Next
+
+        Next
+    End Function
+    Private Function identifyLists()
+        'find first bracket, everything before is a function
+        Dim pattern As String = Me.mySettings.regex.Select("description =  'listeninhalt'")(0).Item(0).ToString.Trim
+
+        Dim regex As New Regex(pattern)
+        Dim pos As New SortedDictionary(Of Integer, String)
+
+        For Each m As Match In regex.Matches(myTXTout)
+            pos.Add(m.Index, m.Value)
+        Next
+
+        For Each entry As KeyValuePair(Of Integer, String) In pos.Reverse
+            myTXTout = myTXTout.Insert(entry.Key, "##LIST_START##")
+            myTXTout = myTXTout.Insert(entry.Key + "##LIST_START##".Length + entry.Value.Length, "##LIST_END##")
+        Next
+
     End Function
 
     Private Function identifyBrackets()
@@ -48,7 +114,10 @@ Public Class Analyser
         Dim pos As New SortedDictionary(Of Integer, String)
 
         For Each m As Match In regex.Matches(myTXTout)
-            pos.Add(m.Index, m.Value)
+            'check if its a keyword from prolog
+            If Me.mySettings.keywords.Select(String.Format("[keyword] = '{0}'", m.Value.Replace("(", "").Trim)).Length < 1 Then
+                pos.Add(m.Index, m.Value)
+            End If
         Next
 
         For Each entry As KeyValuePair(Of Integer, String) In pos.Reverse
@@ -57,7 +126,6 @@ Public Class Analyser
         Next
 
     End Function
-
     Private Function identifyAssignments()
         Dim pattern As String = Me.mySettings.regex.Select("description =  'zuweisung'")(0).Item(0).ToString.Trim
         Dim replacement As String = "##ASSIGNMENT##"

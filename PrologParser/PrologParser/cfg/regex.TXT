@@ -5,7 +5,7 @@
 [/*][.*]*[*/];comments c-style
 \(;klammerauf
 \);klammerzu
-[a-zA-Z0-9]*[_]*[a-zA-Z0-9]*\(;beginnfunction
+[a-zA-Z0-9]*[_]*[a-zA-Z0-9]*[_]*[a-zA-Z0-9]*\(;beginnfunction
 \[;listauf
 \];listzu
 \|;listcut
