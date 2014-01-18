@@ -44,7 +44,7 @@ Public Class Scanner
        New System.Text.RegularExpressions.Regex("[#][#][C][O][M][P][A][R][E][R][_][E][N][D][#][#]"),
       Color.Gold, New List(Of String)(New String() {"##COMPARER_START##", "##COMPARER_END##"}))
 
-        colorMe(New System.Text.RegularExpressions.Regex("[#][#][K][O][N][S][T][_][S][T][A][R][T][#][#]"),
+        colorMe(New System.Text.RegularExpressions.Regex("[#][#][A][S][S][I][G][N][M][E][N][T][#][#]"),
               ":-", "##ASSIGNMENT##".Length,
               Color.Green, New List(Of String)(New String() {"##ASSIGNMENT##"}))
 
@@ -73,7 +73,7 @@ Public Class Scanner
 
 
         For Each s As String In patternsToRemove
-            Me.rtf_result.Rtf = Me.rtf_result.Rtf.Replace(s, "")
+            Me.rtf_result.Rtf = Me.rtf_result.Rtf.Replace(s, replaceString)
         Next
     End Sub
     Private Sub colorMe(regexstart As Regex, regexend As Regex, color As Color, keywordsToRemove As List(Of String))
